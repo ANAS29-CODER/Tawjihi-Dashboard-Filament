@@ -39,14 +39,30 @@ class Book extends Model
                 $newFilename = "{$bookSlug}-{$originalName}.{$extension}";
                 $newPath = 'books/' . $newFilename;
 
-                // Rename file
                 \Storage::disk('public')->move($originalPath, $newPath);
 
-                // Update DB column
                 $book->update([
                     'book_file' => $newPath,
                 ]);
             }
+            // the same thing for image
+            if ($book->image && \Storage::disk('public')->exists($book->image)) {
+                   $originalPath = $book->book_file;
+                $extension = pathinfo($originalPath, PATHINFO_EXTENSION);
+                $originalName = pathinfo($originalPath, PATHINFO_FILENAME);
+
+                $bookSlug = \Str::slug($book->name);
+                $newFilename = "{$bookSlug}-{$originalName}.{$extension}";
+                $newPath = 'books/' . $newFilename;
+
+                \Storage::disk('public')->move($originalPath, $newPath);
+
+                $book->update([
+                    'image' => $newPath,
+                ]);
+            }
+
+
         });
         static::deleting(function ($book) {
             if ($book->book_file && Storage::disk('public')->exists($book->book_file)) {
@@ -67,7 +83,7 @@ class Book extends Model
                 }
             }
 
-            // Check if image has changed
+            
             if ($book->isDirty('image')) {
                 $original = $book->getOriginal('image');
                 if ($original && Storage::disk('public')->exists($original)) {
