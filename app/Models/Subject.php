@@ -26,4 +26,10 @@ class Subject extends Model
     {
         return $this->hasMany(Book::class);
     }
+
+
+    public function solves()
+    {
+        return $this->hasMany(BookSolve::class);
+    }
 }
