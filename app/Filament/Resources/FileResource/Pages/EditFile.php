@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\SectionResource\Pages;
+namespace App\Filament\Resources\FileResource\Pages;
 
-use App\Filament\Resources\SectionResource;
+use App\Filament\Resources\FileResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditSection extends EditRecord
+class EditFile extends EditRecord
 {
-    protected static string $resource = SectionResource::class;
+    protected static string $resource = FileResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -18,9 +18,9 @@ class EditSection extends EditRecord
     }
 
 
-    protected function getSavedNotificationTitle(): ?string
+     protected function getSavedNotificationTitle(): ?string
     {
-        return  __('validation.section_updated');
+        return  __('validation.file_updated');
     }
 
 

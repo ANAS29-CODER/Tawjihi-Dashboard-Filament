@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Filament\Resources\SectionResource\Pages;
+namespace App\Filament\Resources\FileResource\Pages;
 
-use App\Filament\Resources\SectionResource;
+use App\Filament\Resources\FileResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateSection extends CreateRecord
+class CreateFile extends CreateRecord
 {
-    protected static string $resource = SectionResource::class;
+    protected static string $resource = FileResource::class;
+
 
 
 
     protected function getCreatedNotificationTitle(): ?string
     {
-        return  __('validation.section_created');
+        return  __('validation.file_created');
     }
 
 

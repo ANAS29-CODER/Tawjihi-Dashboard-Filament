@@ -26,6 +26,7 @@ class BookResource extends Resource
 
     public static function getNavigationLabel(): string
     {
+        
         return __('validation.books');
     }
 
@@ -64,7 +65,6 @@ class BookResource extends Resource
                     ->disk('public')
                     ->directory('books')
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, $livewire) {
-
                         return $file->getClientOriginalName();
                     }),
 
@@ -91,8 +91,11 @@ class BookResource extends Resource
 
                 Tables\Columns\TextColumn::make('book_link')
                     ->searchable()
-                    ->label(__('validation.book_link')),
-
+                    ->url(fn($record) => $record->book_link)
+                    ->label(__('validation.book_link'))
+                    ->openUrlInNewTab()
+                    ->formatStateUsing(fn($state) => 'File Link')
+                    ->color('info'),
 
 
                 TextColumn::make('book_file')
