@@ -93,9 +93,7 @@ class BookResource extends Resource
                     ->searchable()
                     ->label(__('validation.book_link')),
 
-                // Tables\Columns\TextColumn::make('book_file')
-                //     ->searchable()
-                //     ->label(__('validation.book_file')),
+
 
                 TextColumn::make('book_file')
                     ->label(__('validation.book_file'))
@@ -105,7 +103,8 @@ class BookResource extends Resource
                     ->color('info'),
 
                 Tables\Columns\ImageColumn::make('image')
-                    ->label(__('validation.book_image')),
+                    ->label(__('validation.book_image'))
+                    ,
 
 
             ])
