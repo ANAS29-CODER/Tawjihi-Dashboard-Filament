@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BookSolveResource\Pages;
-use App\Filament\Resources\BookSolveResource\RelationManagers;
-use App\Models\BookSolve;
+use App\Filament\Resources\ButtonResource\Pages;
+use App\Filament\Resources\ButtonResource\RelationManagers;
+use App\Models\Button;
+use App\Models\Section;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -15,57 +16,54 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
-class BookSolveResource extends Resource
+class ButtonResource extends Resource
 {
-    protected static ?string $model = BookSolve::class;
+    protected static ?string $model = Button::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-
     public static function getNavigationLabel(): string
     {
-        return __('validation.solves');
+        return __('validation.file_buttons');
     }
 
     public static function getModelLabel(): string
     {
-        return __('validation.solves');
+        return __('validation.file_buttons');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('validation.solves');
+        return __('validation.file_buttons');
     }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
                 Forms\Components\TextInput::make('name')
-                    ->label(__('validation.solve_name'))
+                    ->label(__('validation.button_name'))
                     ->required()
                     ->maxLength(255),
 
+
                 Select::make('subject_id')
-                    ->label(__('validation.subject_name'))
-                    ->relationship('subject', 'name', fn ($query) => $query->orderBy('name'))
+                    ->relationship('subject', 'name')
+                    ->label(__('validation.select_subject'))
                     ->required()
+                    ->preload()
+                    ->getOptionLabelFromRecordUsing(fn($record) => $record->name . ' - ' . ($record->branch->name ?? '')),
+
+
+
+                Select::make('selected_sections')
+                    ->label('Selected Sections')
+                    ->multiple()
                     ->searchable()
                     ->preload()
-                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name . ' - ' . ($record->branch->name ?? '')),
-
-                Forms\Components\TextInput::make('book_link')
-                    ->label(__('validation.solve_link')),
-
-                FileUpload::make('book_file')
-                    ->label(__('validation.solve_file'))
-                    ->disk('public')
-                    ->directory('solves')
-                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, $livewire) {
-                        return $file->getClientOriginalName();
-                    }),
+                    ->options(Section::pluck('name', 'name')->toArray()) // use name => name if you want names
+                    ->required(),
             ]);
     }
 
@@ -75,27 +73,19 @@ class BookSolveResource extends Resource
             ->columns([
 
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('validation.solve_name'))
+                    ->label(__('validation.button_name'))
+                    ->sortable()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('subject.name')
                     ->label(__('validation.subject_name'))
+                    ->numeric()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('book_link')
-                    ->label(__('validation.solve_link'))
+                Tables\Columns\TextColumn::make('selected_sections')
+                    ->label(__('validation.selected_sections'))
+                    ->sortable()
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('book_file')
-                    ->label(__('validation.solve_file'))
-                    ->url(fn(BookSolve $record): ?string => $record->book_file ?
-                        asset('storage/' . $record->book_file) : null)
-                    ->openUrlInNewTab()
-                    ->formatStateUsing(fn($state) => 'Solve')
-                    ->color('info'),
-
-
-
             ])
             ->filters([
                 //
@@ -105,7 +95,7 @@ class BookSolveResource extends Resource
                 Tables\Actions\DeleteAction::make()
                     ->successNotification(
                         Notification::make()
-                            ->title(__('validation.file_button_deleted'))
+                            ->title(__('validation.solve_file_deleted'))
                             ->success()
                     ),
             ])
@@ -126,9 +116,9 @@ class BookSolveResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBookSolves::route('/'),
-            'create' => Pages\CreateBookSolve::route('/create'),
-            'edit' => Pages\EditBookSolve::route('/{record}/edit'),
+            'index' => Pages\ListButtons::route('/'),
+            'create' => Pages\CreateButton::route('/create'),
+            'edit' => Pages\EditButton::route('/{record}/edit'),
         ];
     }
 }

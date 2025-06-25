@@ -242,7 +242,7 @@ return [
     'select_section' => 'اختر المصدر',
     'select_subject' => 'اختر المادة',
     'select' => 'اختر',
-    'selected_section' => 'المصدر المختار',
+    'selected_sections' => 'المصادر المختارة',
     'button_title' => 'العنوان الرئيسي للزر',
     'delete_file_buttons' => 'هل انت متاكد انك تريد حذف الزر ؟',
 

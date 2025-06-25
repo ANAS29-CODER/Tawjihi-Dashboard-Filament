@@ -32,4 +32,15 @@ class Subject extends Model
     {
         return $this->hasMany(BookSolve::class);
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
+
+
+     public function buttons()
+    {
+        return $this->hasMany(Button::class);
+    }
 }

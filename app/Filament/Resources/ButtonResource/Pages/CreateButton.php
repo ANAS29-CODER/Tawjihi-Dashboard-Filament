@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\SectionResource\Pages;
+namespace App\Filament\Resources\ButtonResource\Pages;
 
-use App\Filament\Resources\SectionResource;
+use App\Filament\Resources\ButtonResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateSection extends CreateRecord
+class CreateButton extends CreateRecord
 {
-    protected static string $resource = SectionResource::class;
+    protected static string $resource = ButtonResource::class;
 
 
 
@@ -23,4 +23,7 @@ class CreateSection extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+
+
 }
