@@ -50,11 +50,12 @@ class BookResource extends Resource
 
 
                 Select::make('subject_id')
-                    ->label(__('validation.subject_name'))
+                    ->label(__('validation.subject'))
                     ->relationship('subject', 'name')
                     ->required()
                     ->searchable()
                     ->preload(),
+                    
 
                 Forms\Components\TextInput::make('book_link')
                     ->maxLength(255)

@@ -20,6 +20,11 @@ class InterviewResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
+     public static function getNavigationGroup(): string
+    {
+        return __('validation.sidebar');
+    }
       public static function getNavigationLabel(): string
     {
         return __('validation.interviews_student');

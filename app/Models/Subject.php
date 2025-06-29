@@ -43,4 +43,9 @@ class Subject extends Model
     {
         return $this->hasMany(Button::class);
     }
+
+     public function advices()
+    {
+        return $this->hasMany(Advice::class);
+    }
 }

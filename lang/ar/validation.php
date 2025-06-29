@@ -264,6 +264,7 @@ return [
     'advice_updated' =>  'تم تحديث النصيحة بنجاح',
     'advice_deleted' =>  'تم حذف النصيحة بنجاح',
     'advice_title'   =>  'عنوان النصيحة',
+    'advice_text'    =>  'نص النصيحة',
     'delete_advice'  =>  'حذف النصيحة',
     'add_advice'     =>  'اضافة نصيحة',
     'edit_advice'    =>  'تعديل النصيحة',
