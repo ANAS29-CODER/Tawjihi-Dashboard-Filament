@@ -23,7 +23,7 @@ class SubjectResource extends Resource
 {
     protected static ?string $model = Subject::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+  protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list'; // Most appropriate for subjects
     public static function getNavigationLabel(): string
     {
         return __('validation.subjects');
@@ -110,7 +110,7 @@ class SubjectResource extends Resource
     {
         return [
 
-    
+
 
 
         ];
