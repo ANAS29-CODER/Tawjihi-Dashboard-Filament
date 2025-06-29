@@ -18,13 +18,13 @@ class EditButton extends EditRecord
     }
 
 
-      protected function getSavedNotificationTitle(): ?string
+    protected function getSavedNotificationTitle(): ?string
     {
         return  __('validation.file_button_updated');
     }
 
 
-       protected function getRedirectUrl(): string
+    protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
     }
