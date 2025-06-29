@@ -118,7 +118,7 @@ class BookResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                 ->successNotification(Notification::make()
-                    ->title(__('validation.book_deleted'))
+                    ->title(__('validation.interview_deleted'))
                     ->success()
                 ),
             ])
