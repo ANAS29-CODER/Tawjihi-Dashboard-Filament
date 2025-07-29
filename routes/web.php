@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('test');
+
+
+Route::get('/error-500', function () {
+    throw new \Exception('Intentional 500 Error for testing');
+});

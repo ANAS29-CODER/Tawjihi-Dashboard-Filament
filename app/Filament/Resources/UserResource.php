@@ -55,8 +55,12 @@ class UserResource extends Resource
         return __('validation.users');
     }
 
+
+
+
     public static function form(Form $form): Form
     {
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
@@ -83,6 +87,7 @@ class UserResource extends Resource
                     ->hidden(fn(string $operation): bool => $operation === 'edit')
                     ->visible(fn(string $operation): bool => $operation === 'create')
                     ->maxLength(255),
+
                 Forms\Components\FileUpload::make('image')
                     ->label(__('validation.forms.image'))
                     ->image()
@@ -156,4 +161,5 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
 }
