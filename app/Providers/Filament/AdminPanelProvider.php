@@ -4,14 +4,20 @@ namespace App\Providers\Filament;
 
 use App\Filament\Widgets\ChartsNumber;
 use App\Filament\Widgets\UsersNumber;
+use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\Css;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentAsset;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -43,8 +49,6 @@ class AdminPanelProvider extends PanelProvider
                 ChartsNumber::class,
             ])
 
-            
-
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -58,6 +62,14 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('17rem')
+            ->userMenuItems([
+                'profile' => MenuItem::make()->label('Edit profile')
+                    ->url(url('/')),
+                // ...
+            ])
+            ->brandName(__('validation.education'));
     }
 }

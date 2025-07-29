@@ -15,6 +15,7 @@ return [
    'user' => 'المستخدم',
     'users' => 'المستخدمين',
     'users_joined' => 'المستخدمون الجدد',
+    'education' =>'توجيهي وبس',
 
 
     // this begin this project

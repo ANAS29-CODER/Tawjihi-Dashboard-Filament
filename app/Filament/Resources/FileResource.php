@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Storage;
 class FileResource extends Resource
 {
     protected static ?string $model = File::class;
+    protected static ?int $navigationSort = 7;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
@@ -95,7 +96,6 @@ class FileResource extends Resource
                     ->searchable(),
 
 
-
                 Tables\Columns\TextColumn::make('subject.name')
                     ->label(__('validation.file_subject'))
                     ->searchable()
@@ -109,14 +109,14 @@ class FileResource extends Resource
                     ->label(__('validation.file_link'))
                     ->url(fn($record) => $record->file_link)
                     ->openUrlInNewTab()
-                    ->formatStateUsing(fn($state) => 'File Link')
+                    ->formatStateUsing(fn($state) => __('validation.file_link'))
                     ->color('info'),
 
                 Tables\Columns\TextColumn::make('file')
                     ->label(__('validation.file_path'))
                     ->url(fn($record) => Storage::disk('public')->url($record->file))
                     ->openUrlInNewTab()
-                    ->formatStateUsing(fn($state) => 'File')
+                    ->formatStateUsing(fn($state) => 'Download')
                     ->color('info'),
 
                 Tables\Columns\ImageColumn::make('image')

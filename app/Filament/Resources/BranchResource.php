@@ -25,6 +25,17 @@ class BranchResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
+    protected static ?int $navigationSort = 2;
+
+     public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+
+
+
+
     public static function getNavigationLabel(): string
     {
         return __('validation.branchs');

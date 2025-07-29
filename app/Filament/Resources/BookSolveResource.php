@@ -23,6 +23,8 @@ class BookSolveResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
 
+    protected static ?int $navigationSort = 6;
+
 
     public static function getNavigationLabel(): string
     {

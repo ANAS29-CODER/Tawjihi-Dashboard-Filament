@@ -21,9 +21,14 @@ class PrayResource extends Resource
 {
     protected static ?string $model = Pray::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-moon';
 
-     public static function getNavigationGroup(): string
+
+
+
+    protected static ?int $navigationSort = 9;
+    
+    public static function getNavigationGroup(): string
     {
         return __('validation.sidebar');
     }
@@ -91,11 +96,11 @@ class PrayResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
-                ->successNotification(
-                    Notification::make()
-                    ->title(__('validation.prayer_deleted'))
-                    ->success()
-                ),
+                    ->successNotification(
+                        Notification::make()
+                            ->title(__('validation.prayer_deleted'))
+                            ->success()
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

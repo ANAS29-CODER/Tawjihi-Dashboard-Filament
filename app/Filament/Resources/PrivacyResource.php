@@ -20,10 +20,11 @@ class PrivacyResource extends Resource
 {
     protected static ?string $model = Privacy::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 10;
 
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
-       public static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('validation.privacy_policies');
     }
@@ -49,8 +50,7 @@ class PrivacyResource extends Resource
 
                 RichEditor::make('privacy_text')
                     ->required()
-                    ->label(__('validation.privacy_policy_content'))
-                    ,
+                    ->label(__('validation.privacy_policy_content')),
             ]);
     }
 
@@ -61,7 +61,7 @@ class PrivacyResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
 
-                      TextColumn::make('privacy_text')
+                TextColumn::make('privacy_text')
                     ->label(__('validation.privacy_policy_content'))
                     ->html() // Allows HTML rendering
                     ->limit(70) // Optional: limits the displayed text length
@@ -79,11 +79,12 @@ class PrivacyResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                   Tables\Actions\DeleteAction::make()
-                ->successNotification(Notification::make()
-                    ->title(__('validation.privacy_policy_deleted'))
-                    ->success()
-                ),
+                Tables\Actions\DeleteAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->title(__('validation.privacy_policy_deleted'))
+                            ->success()
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

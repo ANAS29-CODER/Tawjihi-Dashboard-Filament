@@ -21,6 +21,7 @@ use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 class BookResource extends Resource
 {
     protected static ?string $model = Book::class;
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
@@ -55,7 +56,7 @@ class BookResource extends Resource
                     ->required()
                     ->searchable()
                     ->preload(),
-                    
+
 
                 Forms\Components\TextInput::make('book_link')
                     ->maxLength(255)
@@ -145,4 +146,5 @@ class BookResource extends Resource
             'edit' => Pages\EditBook::route('/{record}/edit'),
         ];
     }
+
 }

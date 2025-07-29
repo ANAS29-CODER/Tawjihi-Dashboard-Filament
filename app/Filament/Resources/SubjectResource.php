@@ -23,8 +23,24 @@ class SubjectResource extends Resource
 {
     protected static ?string $model = Subject::class;
 
-  protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list'; // Most appropriate for subjects
+    protected static ?int $navigationSort = 3;
+
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list'; // Most appropriate for subjects
+
+
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+     public static function getNavigationBadgeColor(): ?string
+    {
+        return 'info' ;
+    }
+
     public static function getNavigationLabel(): string
+
     {
         return __('validation.subjects');
     }
@@ -108,12 +124,7 @@ class SubjectResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-
-
-
-
-        ];
+        return [];
     }
 
     public static function getPages(): array

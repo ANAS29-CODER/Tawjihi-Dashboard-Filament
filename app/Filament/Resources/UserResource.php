@@ -9,10 +9,12 @@ use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\URL;
 
 class UserResource extends Resource
 {
@@ -20,6 +22,18 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'success';
+    }
+
+    protected static ?string $navigationBadgeTooltip = 'The number of users';
     // write the users in single and plural in lang arabic
     protected static ?string $navigationLabel = null;
     protected static ?string $pluralModelLabel = null;
@@ -69,7 +83,7 @@ class UserResource extends Resource
                     ->hidden(fn(string $operation): bool => $operation === 'edit')
                     ->visible(fn(string $operation): bool => $operation === 'create')
                     ->maxLength(255),
-                     Forms\Components\FileUpload::make('image')
+                Forms\Components\FileUpload::make('image')
                     ->label(__('validation.forms.image'))
                     ->image()
                     ->disk('public'),
@@ -82,25 +96,42 @@ class UserResource extends Resource
             //add title
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable()->label(__('validation.forms.name')),
+                    ->searchable()->label(__('validation.forms.name'))
+                    ->alignment(Alignment::Center),
                 Tables\Columns\TextColumn::make('email')
-                ->label(__('validation.forms.email'))
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('image')->label(__('validation.forms.image')),
+                    ->label(__('validation.forms.email'))
+                    ->searchable()
+                    ->width('300px')
+                    ->alignment(Alignment::Center),
+
+                Tables\Columns\ImageColumn::make('image')
+                    ->label(__('validation.forms.image'))
+                    ->disk('public')
+                    ->width(40)
+                    ->height(40)
+                    ->circular()
+                    ->extraImgAttributes([
+                        'onerror' => "this.src='" . asset('images/default-user.jpg') . "'"
+                    ])
+                    ->alignment(Alignment::Center),
+
+
                 Tables\Columns\TextColumn::make('phone')
                     ->label(__('validation.forms.phone'))
-                    ->searchable(),
+                    ->searchable()
+                    ->alignment(Alignment::Center),
 
             ])
+
             ->filters([
                 //
             ])
             ->actions([
-               \Filament\Tables\Actions\EditAction::make()
-                     ->successRedirectUrl(UserResource::getUrl('index'))
-                     ->successNotificationTitle(__('validation.user_updated')),
-                     \Filament\Tables\Actions\DeleteAction::make()
-                     ->successNotificationTitle(__('validation.user_deleted')),
+                \Filament\Tables\Actions\EditAction::make()
+                    ->successRedirectUrl(UserResource::getUrl('index'))
+                    ->successNotificationTitle(__('validation.user_updated')),
+                \Filament\Tables\Actions\DeleteAction::make()
+                    ->successNotificationTitle(__('validation.user_deleted')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

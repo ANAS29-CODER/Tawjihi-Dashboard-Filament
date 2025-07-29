@@ -21,7 +21,10 @@ class ButtonResource extends Resource
 {
     protected static ?string $model = Button::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 8;
+
+
+protected static ?string $navigationIcon = 'heroicon-o-arrows-pointing-in';
 
     public static function getNavigationLabel(): string
     {

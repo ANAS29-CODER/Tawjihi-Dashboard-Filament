@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SectionResource extends Resource
 {
     protected static ?string $model = Section::class;
+     protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationIcon = 'heroicon-o-queue-list';
 

@@ -1,0 +1,28 @@
+overflow-x-clip{
+    background-color: #fbfbfb !important;
+    font-size: 50px !important;
+}
+
+header{
+    padding-left: 0 !important;
+}
+
+
+button[title="توسيع القائمة الجانبية"] {
+
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+        width: auto;
+}
+button[title="توسيع القائمة الجانبية"] svg {
+    display: none;
+}
+
+button[title="توسيع القائمة الجانبية"]::after {
+     content: "☰";
+    font-size: 18px;
+}
+
+aside nav ul{
+    row-gap: .2rem !important;
+}

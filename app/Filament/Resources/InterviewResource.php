@@ -18,14 +18,15 @@ class InterviewResource extends Resource
 {
     protected static ?string $model = Interview::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-microphone';
 
 
-     public static function getNavigationGroup(): string
+    protected static ?int $navigationSort = 9;
+    public static function getNavigationGroup(): string
     {
         return __('validation.sidebar');
     }
-      public static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('validation.interviews_student');
     }
@@ -56,8 +57,7 @@ class InterviewResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->label(__('validation.interview_image'))
-                    ->disk('public')
-                    ,
+                    ->disk('public'),
             ]);
     }
 
@@ -80,8 +80,7 @@ class InterviewResource extends Resource
 
 
                 Tables\Columns\ImageColumn::make('image')
-                ->label(__('validation.interview_image'))
-                ,
+                    ->label(__('validation.interview_image')),
 
             ])
             ->filters([
@@ -89,18 +88,18 @@ class InterviewResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                 Tables\Actions\DeleteAction::make()
-                ->successNotification(Notification::make()
-                    ->title(__('validation.book_deleted'))
-                    ->success()
-                ),
+                Tables\Actions\DeleteAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->title(__('validation.book_deleted'))
+                            ->success()
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-
     }
 
     public static function getRelations(): array
