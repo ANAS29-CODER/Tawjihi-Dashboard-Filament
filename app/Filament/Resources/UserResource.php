@@ -24,7 +24,11 @@ class UserResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return cache()->remember(
+            'users-count',
+            now()->addMinutes(30), 
+            fn() => static::getModel()::count()
+        );
     }
 
 
@@ -161,5 +165,4 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
-
 }

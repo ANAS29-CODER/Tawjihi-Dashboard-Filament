@@ -29,7 +29,11 @@ class BranchResource extends Resource
 
      public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return cache()->remember(
+            'branches-count',
+            now()->addMinutes(30),
+            fn() => static::getModel()::count()
+        );
     }
 
 

@@ -29,9 +29,13 @@ class SubjectResource extends Resource
 
 
 
-    public static function getNavigationBadge(): ?string
+      public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return cache()->remember(
+            'subjects-count',
+            now()->addMinutes(30),
+            fn() => static::getModel()::count()
+        );
     }
 
      public static function getNavigationBadgeColor(): ?string
